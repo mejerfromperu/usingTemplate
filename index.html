@@ -13,6 +13,30 @@
         <div class="nav-bar">
             <h1>{{ intro }}</h1>
             <p>skib</p>
+            <div class="new-trade">
+                <input v-model="newName" placeholder="Aktienavn" />
+                <input v-model.number="newPurchasePrice" placeholder="Købspris (hvis køb)" />
+                <input v-model.number="newSalePrice" placeholder="Salgspris (hvis salg)" />
+                <input v-model.number="newQuantity" type="number" min="1" placeholder="Antal" />
+                <button v-on:click="addStock">Tilføj handel</button>
+            </div>
+
+            <button >Vis kun køb</button>
+            <button >Vis kun salg</button>
+            <button >Vis begge</button>
+            <ul>
+                <li v-for="stock in stocks" :key="stock.name">
+                    <h2 :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">{{ stock.name }}</h2>
+                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">BuyPrice: {{ stock.purchasePrice }}</p>
+                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">SellPrice: {{ stock.salePrice }}</p>
+                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">quantity: {{ stock.quantity }}</p>
+                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">Sum: {{ stock.sum() }}</p>
+                </li>
+            </ul>
+
+
+            <button v-on:click="totalPortofoile">Beregn porteføljens værdi</button>
+            <p>Samlet portefølje værdi: {{ portfolioValue }}</p>
         </div>
     </div>
 
