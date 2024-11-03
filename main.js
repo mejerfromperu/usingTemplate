@@ -8,7 +8,7 @@ const app = Vue.createApp({
                     salePrice: 10,
                     quantity: 100,
                     sum: function() {
-                        return this.purchasePrice * this.quantity;
+                        return (this.purchasePrice !== null ? this.purchasePrice : this.salePrice) * this.quantity;
                     }
                 },
                 {
@@ -17,7 +17,7 @@ const app = Vue.createApp({
                     salePrice: 110,
                     quantity: 43,
                     sum: function() {
-                        return this.salePrice * this.quantity;
+                        return (this.purchasePrice !== null ? this.purchasePrice : this.salePrice) * this.quantity;
                     }
                 }
             ],
@@ -26,10 +26,23 @@ const app = Vue.createApp({
             newSalePrice: null,
             newQuantity: 1,
             portfolioValue: 0,
+            filterType: "both", // Tracks the filter state
+            errorMessage: "" // To hold error messages
+            
         };
     },
     methods: { 
         addStock() {
+            if (this.newSalePrice !== null) {
+                const existingStock = this.stocks.find(stock => stock.name === this.newName);
+                if (existingStock && existingStock.quantity < this.newQuantity) {
+                    this.errorMessage = "Ikke nok aktier til salg!";
+                    return; // Prevent adding the stock if validation fails
+                } else {
+                    this.errorMessage = ""; // Clear any previous error message
+                }
+            }
+
             const newStock = {
                 name: this.newName,
                 purchasePrice: this.newPurchasePrice,
@@ -47,7 +60,16 @@ const app = Vue.createApp({
             this.newQuantity = 1;
         },
         
-
+        showBuyOnly() {
+            this.filterType = "buy";
+        },
+        showSellOnly() {
+            this.filterType = "sell";
+        },
+        showAll() {
+            this.filterType = "both";
+        },
+        
         
         totalPortofoile() {
             this.portfolioValue = this.stocks.reduce((total, stock) => {

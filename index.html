@@ -21,16 +21,22 @@
                 <button v-on:click="addStock">Tilføj handel</button>
             </div>
 
-            <button >Vis kun køb</button>
-            <button >Vis kun salg</button>
-            <button >Vis begge</button>
+            <button v-on:click="showBuyOnly">Vis kun køb</button>
+            <button v-on:click="showSellOnly">Vis kun salg</button>
+            <button v-on:click="showAll">Vis begge</button>
+
+            <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p> <!-- Error message display -->
+
             <ul>
-                <li v-for="stock in stocks" :key="stock.name">
+                <li v-for="stock in stocks" :key="stock.name"
+                    v-show="(filterType === 'both') ||
+                            (filterType === 'buy' && stock.purchasePrice !== null) ||
+                            (filterType === 'sell' && stock.salePrice !== null)">
                     <h2 :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">{{ stock.name }}</h2>
-                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">BuyPrice: {{ stock.purchasePrice }}</p>
-                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">SellPrice: {{ stock.salePrice }}</p>
-                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">quantity: {{ stock.quantity }}</p>
-                    <p :class="{'buy': stock.purchasePrice !== null, 'sell': stock.salePrice !== null}">Sum: {{ stock.sum() }}</p>
+                    <p v-if="stock.purchasePrice !== null" >BuyPrice: {{ stock.purchasePrice }}</p>
+                    <p v-if="stock.salePrice !== null" >SellPrice: {{ stock.salePrice }}</p>
+                    <p>Quantity: {{ stock.quantity }}</p>
+                    <p>Sum: {{ stock.sum() }}</p>
                 </li>
             </ul>
 
