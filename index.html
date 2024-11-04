@@ -25,7 +25,6 @@
             <button v-on:click="showSellOnly">Vis kun salg</button>
             <button v-on:click="showAll">Vis begge</button>
 
-            <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p> <!-- Error message display -->
 
             <ul>
                 <li v-for="stock in stocks" :key="stock.name"

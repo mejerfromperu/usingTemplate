@@ -39,7 +39,7 @@ const app = Vue.createApp({
                     this.errorMessage = "Ikke nok aktier til salg!";
                     return; // Prevent adding the stock if validation fails
                 } else {
-                    this.errorMessage = ""; // Clear any previous error message
+                    this.errorMessage = ""; 
                 }
             }
 
@@ -53,7 +53,7 @@ const app = Vue.createApp({
                 }
             };
             this.stocks.push(newStock);
-            // Nulstil inputfelterne
+
             this.newName = "";
             this.newPurchasePrice = null;
             this.newSalePrice = null;
