@@ -10,3 +10,54 @@ h1 {
 .sell {
     color: red;
 }
+
+
+.stock-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.stock-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    list-style-type: none;
+}
+
+.stock-header h2 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.stock-header h2.buy {
+    color: #4CAF50; /* Green for Buy */
+}
+
+.stock-header h2.sell {
+    color: #E91E63; /* Red for Sell */
+}
+
+.stock-details p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.buy-price {
+    color: #4CAF50;
+}
+
+.sell-price {
+    color: #E91E63;
+}
+
+.stock-quantity, .stock-sum {
+    font-weight: bold;
+}
+
+.stock-sum {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
