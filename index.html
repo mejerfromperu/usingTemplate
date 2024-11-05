@@ -28,28 +28,25 @@
             </div>
         </div>
 
-        <!-- Filter Buttons -->
+        
         <div class="mb-4 text-center">
             <button v-on:click="showBuyOnly" class="btn btn-success me-2">Vis kun køb</button>
             <button v-on:click="showSellOnly" class="btn btn-danger me-2">Vis kun salg</button>
             <button v-on:click="showAll" class="btn btn-secondary">Vis begge</button>
         </div>
 
-        <!-- Stock List -->
+        
         <div class="stock-list">
             <ul class="list-group">
-                <li v-for="stock in stocks" :key="stock.name"
-                    class="list-group-item d-flex flex-column align-items-start"
-                    v-show="(filterType === 'both') ||
-                            (filterType === 'buy' && stock.purchasePrice !== null) ||
-                            (filterType === 'sell' && stock.salePrice !== null)">
+                <!-- Use filteredStocks instead of stocks for filtering -->
+                <li v-for="stock in filteredStocks" :key="stock.name"
+                    class="list-group-item d-flex flex-column align-items-start">
                     
                     <div class="d-flex justify-content-between align-items-center w-100">
                         <h5 class="mb-1" 
                             :class="{'text-success': stock.purchasePrice !== null, 'text-danger': stock.salePrice !== null}">
                             {{ stock.name }}
                         </h5>
-
                     </div>
 
                     <!-- Stock Details -->
@@ -87,6 +84,7 @@
     </script>
 </body>
 </html>
+
 
 
 
